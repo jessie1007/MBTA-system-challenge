@@ -68,7 +68,7 @@ The analysis categorizes accessibility into zones:
 - Merge ACS income data (B19013) with block-group shapefiles using GEOID
 - Filter for Suffolk, Middlesex, and Norfolk counties
 - Create neighborhood income map
-- **Script**: `step1_merge_acs_income.py`
+- **Script**: `scripts/step1_merge_acs_income.py`
 - **Output**: `data/neighborhood_income_merged.geojson`
 
 ### Step 2: Transit Station Accessibility Analysis
@@ -137,7 +137,7 @@ pip install -r requirements.txt
 ### Generate Income Map with Stations
 
 ```bash
-python3 create_income_map_with_stations.py
+python3 scripts/create_income_map_with_stations.py
 ```
 
 This creates `neighborhood_income_map_with_stations.png` showing income distribution with MBTA stations overlaid.
@@ -145,7 +145,7 @@ This creates `neighborhood_income_map_with_stations.png` showing income distribu
 ### Analyze Population Accessibility by Neighborhood
 
 ```bash
-python3 create_population_accessibility_chart.py
+python3 scripts/create_population_accessibility_chart.py
 ```
 
 This generates `population_accessibility_by_neighborhood.png` showing the percentage of each neighborhood's population living beyond 0.5 miles from train stations.
@@ -154,16 +154,16 @@ This generates `population_accessibility_by_neighborhood.png` showing the percen
 
 ```bash
 # Top 30% income block groups
-python3 analyze_top_income_block_groups.py
+python3 scripts/analyze_top_income_block_groups.py
 
 # Bottom 30% income block groups
-python3 analyze_bottom_income_block_groups.py
+python3 scripts/analyze_bottom_income_block_groups.py
 ```
 
 ### Create Complete Accessibility Analysis
 
 ```bash
-python3 create_complete_accessibility_analysis.py
+python3 scripts/create_complete_accessibility_analysis.py
 ```
 
 This performs the full analysis including distance calculations, zone assignments, and generates multiple output files.
@@ -171,20 +171,33 @@ This performs the full analysis including distance calculations, zone assignment
 ### Generate Transit vs. Bike Usage Charts
 
 ```bash
-python3 create_transit_bikes_chart.py
+python3 scripts/create_transit_bikes_chart.py
 ```
 
 ### Generate Income by Region Charts
 
 ```bash
 # By county
-python3 create_income_by_region_chart.py county
+python3 scripts/create_income_by_region_chart.py county
 
 # By census tract
-python3 create_income_by_region_chart.py tract
+python3 scripts/create_income_by_region_chart.py tract
 
 # Top N tracts
-python3 create_income_by_region_chart.py tract 20
+python3 scripts/create_income_by_region_chart.py tract 20
+```
+
+### Run Step-by-Step Analysis
+
+```bash
+# Step 1: Merge ACS income data with block groups
+python3 scripts/step1_merge_acs_income.py
+
+# Step 2: Calculate transit accessibility
+python3 scripts/step2_transit_accessibility.py
+
+# Step 3: Create equity visualizations
+python3 scripts/step3_equity_visualization.py
 ```
 
 ## Key Findings
@@ -207,7 +220,7 @@ python3 create_income_by_region_chart.py tract 20
 - Uses OpenStreetMap street network data
 - Calculates actual walking paths along streets
 - More accurate representation of accessibility
-- Implemented in `calculate_walking_distances.py` and `create_neighborhood_walking_accessibility.py`
+- Implemented in `scripts/calculate_walking_distances.py` and `scripts/create_neighborhood_walking_accessibility.py`
 
 ## Project Structure
 
@@ -228,17 +241,22 @@ MBTA-system-challenge/
 │       ├── neighborhood_income_map.png
 │       ├── neighborhood_income_map_with_stations.png
 │       └── population_accessibility_by_neighborhood.png
-├── step1_merge_acs_income.py     # Step 1: Merge income data
-├── step2_transit_accessibility.py # Step 2: Accessibility analysis
-├── step3_equity_visualization.py  # Step 3: Visualizations
-├── create_income_map_with_stations.py  # Income map with stations
-├── create_population_accessibility_chart.py  # Accessibility charts
-├── create_complete_accessibility_analysis.py  # Full analysis
-├── calculate_walking_distances.py  # Network-based distances
-├── analyze_top_income_block_groups.py  # Top income analysis
-├── analyze_bottom_income_block_groups.py  # Bottom income analysis
-├── create_transit_bikes_chart.py  # Transit vs bike usage
-├── create_income_by_region_chart.py  # Income by region
+├── scripts/                       # Analysis scripts
+│   ├── step1_merge_acs_income.py     # Step 1: Merge income data
+│   ├── step2_transit_accessibility.py # Step 2: Accessibility analysis
+│   ├── step3_equity_visualization.py  # Step 3: Visualizations
+│   ├── create_income_map_with_stations.py  # Income map with stations
+│   ├── create_population_accessibility_chart.py  # Accessibility charts
+│   ├── create_complete_accessibility_analysis.py  # Full analysis
+│   ├── create_neighborhood_walking_accessibility.py  # Walking distance analysis
+│   ├── calculate_walking_distances.py  # Network-based distances
+│   ├── load_mbta_stations.py  # MBTA station loader
+│   ├── analyze_top_income_block_groups.py  # Top income analysis
+│   ├── analyze_bottom_income_block_groups.py  # Bottom income analysis
+│   ├── create_transit_bikes_chart.py  # Transit vs bike usage
+│   ├── create_income_by_region_chart.py  # Income by region
+│   ├── create_region_population_accessibility.py  # Region accessibility
+│   └── analyze_excel_files.py  # Excel data analysis
 ├── requirements.txt              # Python dependencies
 └── README.md                     # This file
 ```
