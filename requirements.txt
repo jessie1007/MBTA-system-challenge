@@ -2,13 +2,29 @@
 pandas>=1.5.0
 numpy>=1.23.0
 
+# Geospatial Data
+geopandas>=0.13.0
+shapely>=2.0.0
+fiona>=1.9.0
+geopy>=2.3.0  # For distance calculations
+osmnx>=1.6.0  # For street network analysis and walking distance calculations
+networkx>=3.0  # For network path calculations
+scipy>=1.10.0  # For spatial indexing
+
 # Data Visualization
 matplotlib>=3.6.0
 seaborn>=0.12.0
+contextily>=1.3.0
 
 # Jupyter Notebook Support
 jupyter>=1.0.0
 ipykernel>=6.20.0
 
-# Add other dependencies as needed
+# Census Data Access (optional)
+cenpy>=1.0.0  # For accessing Census API directly
+tqdm>=4.65.0  # For download progress bars
+
+# Excel file reading
+openpyxl>=3.0.0  # For reading .xlsx files
+xlrd>=2.0.0  # For reading .xls files (legacy)
 
