@@ -30,6 +30,7 @@ wheels/
 *.xls
 *.parquet
 data/
+MBTA_GTFS/
 *.db
 *.sqlite
 
@@ -76,4 +77,9 @@ Thumbs.db
 *.html
 *.json
 cache/
+
+# Allow documentation images
+!docs/images/*.png
+!docs/images/*.jpg
+!docs/images/*.jpeg
 
